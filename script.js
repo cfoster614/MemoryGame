@@ -2,13 +2,10 @@ const gameContainer = document.getElementById("game");
 const countContainer = document.getElementById("score")
 const buttonStart = document.querySelector("#start");
 const buttonReset = document.querySelector("#reset");
-const buttons = document.querySelectorAll("button");
 
-let guessCount = 0;
+let guessCount = 1;
 let noClicking = true;
 let previousCard= null;
-
-
 
 const COLORS = [
   "red",
@@ -59,15 +56,13 @@ function createDivsForColors(colorArray) {
     // give it a class attribute for the value we are looping over
     newDiv.classList.add(color);
     
-
     // call a function handleCardClick when a div is clicked on
     newDiv.addEventListener("click", handleCardClick);
 
     // append the div to the element with an id of game
     gameContainer.append(newDiv);
-  }
+  } 
 }
-
 // TODO: Implement this function!
 function handleCardClick(event) {
   if (event.target.classList.contains("flipped")) return;
@@ -77,7 +72,6 @@ function handleCardClick(event) {
   
   console.log("current target = ", currentCard);
   currentCard.style.backgroundColor = currentCard.className;
-  
   
   // if first click is empty
 if(previousCard === null){
@@ -106,20 +100,14 @@ if(previousCard === null){
       previousCard = null;
       noClicking = false;
     }, 1000);
-    score.textContent = guessCount ++;
+    score.textContent = `Guesses: ${guessCount ++}`;
   } 
- 
 }
-
 
 function startGame(){
   createDivsForColors(shuffledColors);
+  buttonStart.remove();
   noClicking = false;
-}
-
-function resetGame() {
-    gameContainer.textContent = '';
-    noClicking = false;
 }
 
 buttonStart.addEventListener('click', function() {
@@ -128,9 +116,6 @@ buttonStart.addEventListener('click', function() {
   console.log('start');
 })
 
-buttonReset.addEventListener('click', function(){
-  gameContainer.replaceChildren();
-  createDivsForColors(shuffledColors);
-  noClicking = false;
-})
-
+buttonReset.addEventListener('click', function() {
+  location.reload();
+});
