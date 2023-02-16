@@ -110,12 +110,20 @@ function startGame(){
   noClicking = false;
 }
 
+function clearBoard(parent){
+  while(parent.firstChild){
+    parent.removeChild(parent.firstChild);
+  }
+}
 buttonStart.addEventListener('click', function() {
   startGame();
   noClicking = false;
-  console.log('start');
 })
 
 buttonReset.addEventListener('click', function() {
-  location.reload();
+  setTimeout(function(){
+    clearBoard(gameContainer);
+    shuffle(COLORS);
+    createDivsForColors(shuffledColors);
+  }, 500);
 });
